@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'income:index' %}">Income</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Add add Income</li>
+    </ol>
+  </nav>
+
+  <div class="card">
+    <div class="card-body">
+      <form action="{% url 'income:add_income' %}" method="post">
+        {% include 'partials/_massages.html'%} {% csrf_token %}
+        <div class="form-group">
+          <label for="">Amount</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="amount"
+            value="{{values.amount}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Description</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="description"
+            value="{{values.description}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Sources</label>
+          <select class="form-control" name="source">
+              {% for source in sources %}
+                  <option value="{{ source.name }}">{{ source.name }}</option>
+              {% endfor %}
+          </select>
+      </div>
+      
+        <div class="form-group">
+          <label for="">Date of income</label>
+          <input
+            type="date"
+            class="form-control form-control-sm"
+            name="income_date"
+          />
+        </div>
+
+        <hr class="mt-2">
+        <input
+          type="submit"
+          value="Submit"
+          class="btn btn-primary btn-primary-sm"
+        />
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
